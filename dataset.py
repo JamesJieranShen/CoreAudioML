@@ -8,10 +8,12 @@ import os
 
 # Function converting np read audio to range of -1 to +1
 def audio_converter(audio):
+    if audio.dtype == 'float32':
+        return audio.astype(np.float32, order='C')
     if audio.dtype == 'int16':
         return audio.astype(np.float32, order='C') / 32768.0
     else:
-        print('unimplemented audio data type conversion...')
+        assert True, 'unimplemented audio data type conversion...'
 
 
 # Splits audio, each split marker determines the fraction of the total audio in that split, i.e [0.75, 0.25] will put
